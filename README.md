@@ -9,8 +9,7 @@ Tester: Basaraba Razvan 341C2<br/>
 Developer: Buzera Tiberiu 341C2<br/>
 Ledezeu: Robert Andrei 343C2<br/>
 
-
-![msedge_p2WQXdnIGb](https://user-images.githubusercontent.com/56930275/199518477-9648b98c-bdc0-47d7-a4b5-4b8753023b32.png)
+![msedge_KtfaprshqE](https://user-images.githubusercontent.com/56930275/199531630-030e0ae0-58e8-41df-b86b-1b43bfce72ff.png)
 
 # Scopul Proiectului
 Gasirea unui algoritm ce obtime in urma unor calcule asupra mai multor seturi de date (15 reultate a 15 algoritmi de stergere a background-ului dintr-o poza pentru a ramane doar textul) un rezultat cat mai apropiat posibil de o valoare primita la input. Algoritmul trebuie sa fie precis pentru toate seturile de date, de asemenea acesta trebuie sa aibe o complexitate temporala buna. In functie de rezultatul obtinut, se va calcula o valoare cu formula: floor(result * 255) care va fi asociat cu un scor. Scopul final al priectului este obtinerea unui scor cat mai bun.
