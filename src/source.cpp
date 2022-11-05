@@ -4,8 +4,6 @@
 #include <cmath>
 #include "treshholds.h"
 
-using namespace std;
-
 //function that reads data form files
 void readInputData(vector<TreshHolds> &treshHolds) {
     for (auto& file : filesystem::directory_iterator{ "../../MPS-Global" })  //loop through the folder
@@ -71,6 +69,9 @@ int main() {
         average_ideal_score += treshHolds[i].score[r];
     }
     cout << average_ideal_score/treshHolds.size() << endl;
+
+    //the operations that will be used in order to obtain the result
+    vector<string> operations = {"and", "or", "if", "else", "for", "min", "max"};
 
     return 0;
 }
