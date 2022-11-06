@@ -21,10 +21,10 @@ https://ocw.cs.pub.ro/courses/mps/proiect
 ### Milestone 1
 - [x] Setare repo pe github
 - [x] Implementare diagrama WBS
-- [ ] Implementare diagrama Gantt
-- [ ] Creare raport text organizare
+- [x] Implementare diagrama Gantt
+- [x] Creare raport text organizare
 - [x] Citire set de date din fisierele CSV
-- [ ] Familiarizarea cu modul de implementare al algoritmului MonteCarlo
+- [x] Familiarizarea cu modul de implementare al algoritmului MonteCarlo
 ### Milestone 2
 - [ ] Raport tehnic (articol)
 - [ ] Raport de dezvoltare si testare
@@ -41,6 +41,7 @@ https://ocw.cs.pub.ro/courses/mps/proiect
 ### Diagrama WBS
 ![msedge_KtfaprshqE](https://user-images.githubusercontent.com/56930275/199531630-030e0ae0-58e8-41df-b86b-1b43bfce72ff.png)
 ### Diagrama Grantt
+![WhatsApp Image 2022-11-06 at 3 19 45 PM](https://user-images.githubusercontent.com/56930275/200176962-6409f01e-e7d8-49da-9137-a7e5e346aa45.jpeg)
 ![mps-grantt](https://user-images.githubusercontent.com/57098784/200176147-d4556fa7-beec-4f18-9d50-5aba61158520.png)
 ### Raport text organizare la nivel de echipa
 &emsp; Am ales pentru dezvoltarea acestui proiect metodologia AGILE intrucat aceasta ne permite o mai usoara schimbare a modului de lucru in cazul in care este nevoie chiar si intr-o faza mai avansata a dezvoltarii. De asemenea aceasta reprezinta cea mai eficienta metoda de a transmite informatii intrucat presupune un numar des de meeting-uri in care se discuta update-uri si imbunatatiri si ajuta la construirea unei echipe care se auto-organizeaza. <br/>
