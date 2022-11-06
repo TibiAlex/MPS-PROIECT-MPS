@@ -41,6 +41,7 @@ https://ocw.cs.pub.ro/courses/mps/proiect
 ### Diagrama WBS
 ![msedge_KtfaprshqE](https://user-images.githubusercontent.com/56930275/199531630-030e0ae0-58e8-41df-b86b-1b43bfce72ff.png)
 ### Diagrama Grantt
+![mps-grantt](https://user-images.githubusercontent.com/57098784/200176147-d4556fa7-beec-4f18-9d50-5aba61158520.png)
 ### Raport text organizare la nivel de echipa
 &emsp; Am ales pentru dezvoltarea acestui proiect metodologia AGILE intrucat aceasta ne permite o mai usoara schimbare a modului de lucru in cazul in care este nevoie chiar si intr-o faza mai avansata a dezvoltarii. De asemenea aceasta reprezinta cea mai eficienta metoda de a transmite informatii intrucat presupune un numar des de meeting-uri in care se discuta update-uri si imbunatatiri si ajuta la construirea unei echipe care se auto-organizeaza. <br/>
 &emsp; In cadrul echipei s-au acordat roluri fiecarui individ, insa acest lucru nu opreste pe nimeni de a avea acces si la partile celorlalti coechipieri pentru a cunoaste intregul produs si a ajuta la nevoie. <br/>
