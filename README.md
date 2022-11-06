@@ -1,12 +1,12 @@
-# MPS-PROIECT-MPS
+# Managementul Proiectelor Software - PROIECT
 * Google Drive: https://drive.google.com/drive/folders/1-G8h9piH-X3IQZn_m17fs_1DVSkWlBGU?usp=sharing
 
 # Echipa:
-Product Manager: Iordache Ionut 343C2<br/>
-Design: Grigoras Adrian 344C2<br/>
-Testing: Basaraba Razvan 341C2<br/>
-Developer: Buzera Tiberiu 341C2<br/>
-Developer: Ledezeu Robert Andrei 343C2<br/>
+Manager Proiect: Iordache Ionut 343C2 :speaking_head: <a href="https://www.linkedin.com/in/ionut-iordache-194677202/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a> <br/>
+Arhitectul Sistemului: Grigoras Adrian 344C2 :man_artist: <br/>
+Tester: Basaraba Razvan 341C2 :detective: <br/>
+Dezvoltator software: Buzera Tiberiu 341C2 :man_technologist: <br/>
+Dezvoltator software: Ledezeu Robert Andrei 343C2 :man_office_worker: <br/>
 
 # Scopul Proiectului
 Gasirea unui algoritm ce obtime in urma unor calcule asupra mai multor seturi de date (15 reultate a 15 algoritmi de stergere a background-ului dintr-o poza pentru a ramane doar textul) un rezultat cat mai apropiat posibil de o valoare primita la input. Algoritmul trebuie sa fie precis pentru toate seturile de date, de asemenea acesta trebuie sa aibe o complexitate temporala buna. In functie de rezultatul obtinut, se va calcula o valoare cu formula: floor(result * 255) care va fi asociat cu un scor. Scopul final al priectului este obtinerea unui scor cat mai bun.
@@ -19,22 +19,22 @@ https://ocw.cs.pub.ro/courses/mps/proiect
 
 # Task-uri
 ### Milestone 1
-- [x] setare repo pe github
-- [x] implementare diagrama wbs
-- [ ] implementare diagrama Gantt
-- [ ] creare raport text organizare
-- [x] citire set de date din fisierele .csv
-- [ ] cercetare asupra algoritmului MonteCarlo
+- [x] Setare repo pe github
+- [x] Implementare diagrama WBS
+- [ ] Implementare diagrama Gantt
+- [ ] Creare raport text organizare
+- [x] Citire set de date din fisierele CSV
+- [ ] Familiarizarea cu modul de implementare al algoritmului MonteCarlo
 ### Milestone 2
-- [ ] raport tehnic (articol)
-- [ ] raport de dezvoltare si testare
-- [ ] demo prototip intermediar
+- [ ] Raport tehnic (articol)
+- [ ] Raport de dezvoltare si testare
+- [ ] Demo prototip intermediar
 
 ### Milestone 3
-- [ ] prezentarea solutiei binarizare
-- [ ] demo tehnic al solutiilor
-- [ ] raport dezvoltare si testare
-- [ ] raport tehnic
+- [ ] Prezentarea solutiei binarizare
+- [ ] Demo tehnic al solutiilor
+- [ ] Raport dezvoltare si testare
+- [ ] Raport tehnic
 
 ## Milestone 1
 ---
