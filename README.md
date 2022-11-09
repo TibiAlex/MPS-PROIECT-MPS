@@ -53,3 +53,4 @@ Crearea unui algoritm ce citeste seturile de date de intrare din fisierele .csv,
 Proiect OCW: https://ocw.cs.pub.ro/courses/mps/proiect <br>
 Diagrama Gantt: https://online.visual-paradigm.com/share.jsp?id=323233313835352d31 <br>
 Google Drive: https://drive.google.com/drive/folders/1-G8h9piH-X3IQZn_m17fs_1DVSkWlBGU?usp=sharing <br>
+Jira: https://team-16680050172730.atlassian.net/jira/software/projects/MAN/boards/1 <br>
