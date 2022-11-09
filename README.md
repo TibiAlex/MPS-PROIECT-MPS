@@ -2,7 +2,7 @@
 
 # Echipa:
 Manager Proiect: Iordache Ionut 343C2 :speaking_head: <a href="https://www.linkedin.com/in/ionut-iordache-194677202/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a> <br/>
-Arhitectul Sistemului: Grigoras Adrian 344C2 :man_artist: <br/>
+Arhitectul Sistemului: Grigoras Adrian 344C5 :man_artist: <br/>
 Tester: Basaraba Razvan 341C2 :detective: <br/>
 Dezvoltator software: Buzera Tiberiu 341C2 :man_technologist: <br/>
 Dezvoltator software: Ledezeu Robert Andrei 343C2 :man_office_worker: <br/>
