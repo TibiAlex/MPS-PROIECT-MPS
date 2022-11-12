@@ -3,9 +3,10 @@
 #include <sstream>
 #include <cmath>
 #include "treshholds.h"
+#include "graph.h"
 
 //function that reads data form files
-void readInputData(vector<TreshHolds> &treshHolds) {
+void readInputData(vector<TreshHolds> &treshHolds, vector<Graph> &graphs) {
     for (auto& file : filesystem::directory_iterator{ "../../MPS-Global" })  //loop through the folder
     {
         string line, word;
@@ -13,6 +14,7 @@ void readInputData(vector<TreshHolds> &treshHolds) {
         if (fs.is_open()) {
 
             TreshHolds th;
+            Graph graph;
             th.filename = file.path().generic_string();
             bool isIdeal = true;
 
@@ -23,7 +25,9 @@ void readInputData(vector<TreshHolds> &treshHolds) {
                     th.idealThreshHold = stof(word);
                     isIdeal = false;
                 } else {
-                    th.threshholds.push_back(stof(word));
+                    float f = stof(word);
+                    th.threshholds.push_back(f);
+                    graph.initial_level.push_back(Node("null", f));
                 }
             }
             getline(fs, line);
@@ -31,47 +35,220 @@ void readInputData(vector<TreshHolds> &treshHolds) {
             while(getline(str2, word, ','))
                 th.score.push_back(stof(word));
 
+            sort(th.threshholds.begin(),th.threshholds.end());
             treshHolds.push_back(th);
+            graphs.push_back(graph);
         } else
             cout<<"Could not open the file\n";
         
-        //comment the line below for only the first file to be read
+        //uncomment the line below for only the first file to be read
         // break;
     }
 }
 
-int main() {
+//function that chooses either min or max operation
+float if_min_max(float n1, float n2, float ideal) {
+    if(abs(min(n1, n2) - ideal) < abs(max(n1, n2) - ideal))
+        return min(n1, n2);
+    else
+        return max(n1, n2);
+}
 
+//function that chooses either sum or diff operation
+float if_sum_diff(float n1, float n2, float ideal) {
+    if(abs(abs(n1 - n2) - ideal) < abs(n1 + n2 - ideal))
+        if(n1 == n2)
+            return n1 / 2;
+        else
+            return abs(n1 - n2);
+    else
+        return n1 + n2;
+}
+
+//function that chooses either multiply or divide operation
+float if_multiply_divide(float n1, float n2, float ideal) {
+    if(n2 == 0)
+        return n1;
+    if(n1 == 0)
+        return n2;
+    if(abs(n1 * n2 - ideal) < abs(n1 / n2 - ideal))
+        return n1 * n2;
+    else 
+        return n1/n2;
+}
+
+int main() {
     //the vector where all the data will be stored
     vector<TreshHolds> treshHolds;
+    //the graph containing the result
+    vector<Graph> graphs;
     
     //function that reads data form files
-    readInputData(treshHolds);
+    readInputData(treshHolds, graphs);
+    //keeping thenumber of images to not call the function daily
+    int number_of_treshholds = treshHolds.size();
 
-    // displaying all read data uncomment for debug
-    // for (int i = 0; i < treshHolds.size(); i++) {
-    //     cout << treshHolds[i].filename << endl;
-    //     cout << treshHolds[i].idealThreshHold << endl;
-    //     for (int j = 0; j < treshHolds[i].threshholds.size(); j++) {
-    //         cout << treshHolds[i].threshholds[j] << " ";
-    //     }
-    //     cout << endl;
-    //     for (int j = 0; j < treshHolds[i].score.size(); j++) {
-    //         cout << treshHolds[i].score[j] << " ";
-    //     }
-    //     cout << endl;
-    // }
+    /*
+    // ? displaying all read data uncomment for debug
+    for (int i = 0; i < treshHolds.size(); i++) {
+        cout << treshHolds[i].filename << endl;
+        cout << treshHolds[i].idealThreshHold << endl;
+        for (int j = 0; j < treshHolds[i].threshholds.size(); j++) {
+            cout << treshHolds[i].threshholds[j] << " ";
+        }
+        cout << endl;
+        for (int j = 0; j < treshHolds[i].score.size(); j++) {
+            cout << treshHolds[i].score[j] << " ";
+        }
+        cout << endl;
+    }
+    */
 
-    // task1: calculate the score using the ideal treshholds
+    /*
+    // ? task1: calculate the score using the ideal treshholds
     float average_ideal_score = 0;
     for (int i = 0; i < treshHolds.size(); i++) {
         float r = floor(255 * treshHolds[i].idealThreshHold);
         average_ideal_score += treshHolds[i].score[r];
     }
     cout << average_ideal_score/treshHolds.size() << endl;
+    */
 
     //the operations that will be used in order to obtain the result
-    vector<string> operations = {"and", "or", "if", "else", "for", "min", "max"};
+    vector<string> operations = {"multiply", "sum", "diff", "min", "max", "divide", "if_min_max", "if_sum_diff", "if_multiply_divide"};
+
+    //calculate graph either until N or until error smaller than E
+    int N = 1;
+    float E = 0.1;
+    for (int i = 0; i < N; i++) {
+        //assign the old level as the initial treshhold values
+        for(int j = 0; j < number_of_treshholds; j++) {
+            graphs[j].old_level = graphs[j].initial_level;
+        }
+        //generate random operations and number of operations
+        int nr_max_op = 15;
+        int nr_min_op = nr_max_op/2 + 1;
+        int nr_op = rand() % (nr_max_op - nr_min_op) + nr_min_op;
+        while(nr_op >= 1) {
+            vector<operation> operation_indexes;
+            for(int j = 0; j < nr_op; j++) {
+                operation op;
+                op.op = rand() % (operations.size() - 1);
+                //generate 2 indexes for the numbers for the operations
+                op.index1 = rand() % (nr_max_op - 1);
+                op.index2 = rand() % (nr_max_op - 1);
+                operation_indexes.push_back(op);
+            }
+            
+            //calculate the result for each image
+            for(int j = 0; j < number_of_treshholds; j++) {
+                //clear the current level for the graph
+                graphs[j].level.clear();
+                //go through each operation
+                for(int k = 0; k < operation_indexes.size(); k++) {
+                    Node node;
+                    //verify if multiply by 0
+                    if(operations[operation_indexes[k].op] == "multiply") {
+                        if (graphs[j].old_level[operation_indexes[k].index1].result == 0)
+                            node.result = graphs[j].old_level[operation_indexes[k].index2].result;
+                        else if (graphs[j].old_level[operation_indexes[k].index2].result == 0)
+                            node.result = graphs[j].old_level[operation_indexes[k].index1].result; 
+                        else
+                            node.result = graphs[j].old_level[operation_indexes[k].index1].result *
+                                    graphs[j].old_level[operation_indexes[k].index2].result; 
+                        node.operation = "multiply";
+                    }
+                    //verify if divided by 0
+                    if(operations[operation_indexes[k].op] == "divide") {
+                        if (graphs[j].old_level[operation_indexes[k].index2].result == 0) 
+                            node.result = graphs[j].old_level[operation_indexes[k].index1].result;
+                        else
+                            node.result = abs(graphs[j].old_level[operation_indexes[k].index1].result /
+                                        graphs[j].old_level[operation_indexes[k].index2].result);
+                        node.operation = "divide";
+                    }
+                    //verify if sum
+                    if(operations[operation_indexes[k].op] == "sum") {
+                        node.result = graphs[j].old_level[operation_indexes[k].index1].result +
+                                    graphs[j].old_level[operation_indexes[k].index2].result;
+                        node.operation = "sum";
+                    }
+                    //verify if diff by himself couse of 0
+                    if(operations[operation_indexes[k].op] == "diff") {
+                        if(operation_indexes[k].index1 == operation_indexes[k].index2)
+                            node.result = graphs[j].old_level[operation_indexes[k].index1].result/2;
+                        else
+                            node.result = graphs[j].old_level[operation_indexes[k].index1].result -
+                                graphs[j].old_level[operation_indexes[k].index2].result;
+                        node.operation = "diff";
+                    }
+                    //verify if min
+                    if(operations[operation_indexes[k].op] == "min") {
+                        node.result = min(graphs[j].old_level[operation_indexes[k].index1].result,
+                                    graphs[j].old_level[operation_indexes[k].index2].result);
+                        node.operation = "min";
+                    }
+                    //verifi if max
+                    if(operations[operation_indexes[k].op] == "max") {
+                        node.result = max(graphs[j].old_level[operation_indexes[k].index1].result,
+                                    graphs[j].old_level[operation_indexes[k].index2].result);
+                        node.operation = "max";
+                    }
+                    //verify if min or max is more suitable for the situation
+                    if(operations[operation_indexes[k].op] == "if_min_max") {
+                        node.result = if_min_max(graphs[j].old_level[operation_indexes[k].index1].result,
+                                                graphs[j].old_level[operation_indexes[k].index2].result,
+                                                treshHolds[j].idealThreshHold);
+                        node.operation = "if_min_max";
+                    }
+                    //verify if sum or diff is more suitable for the situation
+                    if(operations[operation_indexes[k].op] == "if_sum_diff") {
+                        node.result = if_sum_diff(graphs[j].old_level[operation_indexes[k].index1].result,
+                                                graphs[j].old_level[operation_indexes[k].index2].result,
+                                                treshHolds[j].idealThreshHold);
+                        node.operation = "if_sum_diff";
+                    }
+                    //verify if multiply or divide is more suitable for the situation
+                    if(operations[operation_indexes[k].op] == "if_multiply_divide") {
+                        node.result = if_multiply_divide(graphs[j].old_level[operation_indexes[k].index1].result,
+                                                graphs[j].old_level[operation_indexes[k].index2].result,
+                                                treshHolds[j].idealThreshHold);
+                        node.operation = "if_multiply_divide";
+                    }
+                    graphs[j].level.push_back(node);
+                }
+                graphs[j].old_level = graphs[j].level;
+            }
+
+            // for(int a = 0; a < number_of_treshholds; a++) {
+            //     for(int b = 0; b < graphs[a].level.size(); b++) {
+            //         cout << graphs[a].level[b].operation << " " << graphs[a].level[b].result << " ";
+            //     }
+            //     cout << endl;
+            // }
+
+            //make the next number of operations until 1
+            nr_max_op = nr_op;
+            if(nr_max_op <= 3) {
+                nr_min_op = 0;
+            } else {
+                nr_min_op = nr_max_op/2 + 1;
+            }
+            if (nr_op == 1) break;
+            nr_op = rand() % (nr_max_op - nr_min_op) + nr_min_op;
+            if (nr_op == 0) nr_op = 1;
+            if (nr_max_op == 0) break;
+        }
+    }
+
+    float avg = 0;
+    for (int i = 0; i < number_of_treshholds; i++) {
+        if (graphs[i].old_level[0].result < 1) {
+            float r = floor(255 * graphs[i].old_level[0].result);
+            avg += treshHolds[i].score[r];
+        }
+    }
+    cout << avg/number_of_treshholds << endl;;
 
     return 0;
 }
