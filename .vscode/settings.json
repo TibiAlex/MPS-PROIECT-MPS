@@ -5,6 +5,13 @@
         "ostream": "cpp",
         "string": "cpp",
         "iostream": "cpp",
-        "iosfwd": "cpp"
-    }
+        "iosfwd": "cpp",
+        "xstring": "cpp",
+        "utility": "cpp",
+        "format": "cpp",
+        "list": "cpp",
+        "chrono": "cpp",
+        "cmath": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
