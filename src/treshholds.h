@@ -12,3 +12,9 @@ class TreshHolds
         vector<float> threshholds;
         vector<float> score;
 };
+
+typedef struct {
+    int op;
+    int index1;
+    int index2;
+} operation;
