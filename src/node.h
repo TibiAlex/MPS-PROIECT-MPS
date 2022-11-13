@@ -11,3 +11,9 @@ class Node {
         Node(string operation, float result);
         Node();
 };
+
+typedef struct {
+    int op;
+    int index1;
+    int index2;
+} operation;
