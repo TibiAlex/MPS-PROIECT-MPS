@@ -3,7 +3,7 @@
 using namespace std;
 
 //calculate graph either until N or until error smaller than E
-int N = 1;
+int N = 10;
 float E = 0.1;
 
 //the operations that will be used in order to obtain the result
