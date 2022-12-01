@@ -1,14 +1,11 @@
-#include <fstream>
-#include <filesystem>
-#include <sstream>
-#include <cmath>
+#include <bits/stdc++.h>
 #include "treshholds.h"
 #include "graph.h"
+#include "source.h"
 
 //function that reads data form files
 void readInputData(vector<TreshHolds> &treshHolds, vector<Graph> &graphs) {
-    for (auto& file : filesystem::directory_iterator{ "../../MPS-Global" })  //loop through the folder
-    {
+    for (auto& file : filesystem::directory_iterator{ "../../MPS-Global" }){
         string line, word;
         ifstream fs{ file.path() };
         if (fs.is_open()) {
@@ -87,6 +84,8 @@ int main() {
     vector<TreshHolds> treshHolds;
     //the graph containing the result
     vector<Graph> graphs;
+    /* initialize random seed: */
+    srand (time(NULL));
     
     //function that reads data form files
     readInputData(treshHolds, graphs);
@@ -103,7 +102,7 @@ int main() {
 
     /*
     // ? displaying all read data uncomment for debug
-    for (int i = 0; i < treshHolds.size(); i++) {
+    for (int i = 0; i < number_of_treshholds; i++) {
         cout << treshHolds[i].filename << endl;
         cout << treshHolds[i].idealThreshHold << endl;
         for (int j = 0; j < treshHolds[i].threshholds.size(); j++) {
@@ -115,24 +114,17 @@ int main() {
         }
         cout << endl;
     }
-    */
+
 
     /*
     // ? task1: calculate the score using the ideal treshholds
     float average_ideal_score = 0;
-    for (int i = 0; i < treshHolds.size(); i++) {
+    for (int i = 0; i < number_of_treshholds; i++) {
         float r = floor(255 * treshHolds[i].idealThreshHold);
         average_ideal_score += treshHolds[i].score[r];
     }
-    cout << average_ideal_score/treshHolds.size() << endl;
+    cout << average_ideal_score/number_of_treshholds << endl;
     */
-
-    //the operations that will be used in order to obtain the result
-    vector<string> operations = {"multiply", "sum", "diff", "min", "max", "divide", "if_min_max", "if_sum_diff", "if_multiply_divide"};
-
-    //calculate graph either until N or until error smaller than E
-    int N = 10;
-    float E = 10;
     for (int i = 0; i < N; i++) {
         //the level at which all the graphs are currently at
         int level = 0;
@@ -198,7 +190,7 @@ int main() {
                                     graphs[j].levels[level][operation_indexes[k].index2].result);
                         node.operation = "min";
                     }
-                    //verifi if max
+                    //verify if max
                     if(operations[operation_indexes[k].op] == "max") {
                         node.result = max(graphs[j].levels[level][operation_indexes[k].index1].result,
                                     graphs[j].levels[level][operation_indexes[k].index2].result);
