@@ -125,7 +125,6 @@ int main() {
     }
     cout << average_ideal_score/number_of_treshholds << endl;
     */
-
     for (int i = 0; i < N; i++) {
         //the level at which all the graphs are currently at
         int level = 0;
