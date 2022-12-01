@@ -5,7 +5,6 @@
 
 //function that reads data form files
 void readInputData(vector<TreshHolds> &treshHolds, vector<Graph> &graphs) {
-    int a = 0;
     for (auto& file : filesystem::directory_iterator{ "../../MPS-Global" }){
         string line, word;
         ifstream fs{ file.path() };
@@ -27,7 +26,12 @@ void readInputData(vector<TreshHolds> &treshHolds, vector<Graph> &graphs) {
                 } else {
                     float f = stof(word);
                     th.threshholds.push_back(f);
-                    level0.push_back(Node("null", f));
+                    Operation operation;
+                    operation.index1 = -1;
+                    operation.index2 = -1;
+                    operation.label = "null";
+                    operation.op = -1;
+                    level0.push_back(Node(operation, f));
                 }
             }
             graph.levels.push_back(level0);
@@ -43,8 +47,6 @@ void readInputData(vector<TreshHolds> &treshHolds, vector<Graph> &graphs) {
             graphs.push_back(graph);
         } else
             cout<<"Could not open the file\n";
-        a++;
-        if (a == 2) break;
         //uncomment the line below for only the first file to be read
         // break;
     }
@@ -115,13 +117,14 @@ int main() {
         int nr_min_op = nr_max_op/2 + 1;
         int nr_op = rand() % (nr_max_op - nr_min_op) + nr_min_op;
         while(nr_op >= 1) {
-            vector<operation> operation_indexes;
+            vector<Operation> operation_indexes;
             for(int j = 0; j < nr_op; j++) {
-                operation op;
+                Operation op;
                 op.op = rand() % (operations.size() - 1);
                 //generate 2 indexes for the numbers for the operations
                 op.index1 = rand() % (nr_max_op - 1);
                 op.index2 = rand() % (nr_max_op - 1);
+                op.label = operations[op.op];
                 operation_indexes.push_back(op);
             }
             
@@ -129,63 +132,49 @@ int main() {
             for(int j = 0; j < number_of_treshholds; j++) {
                 vector<Node> level_vector;
                 //go through each operation
-                cout << j << endl;
                 for(int k = 0; k < operation_indexes.size(); k++) {
                     Node node;
                     //verify if m_g
                     if(operations[operation_indexes[k].op] == "m_g") {
-                        cout << operations[operation_indexes[k].op] << endl;
                         node.result = sqrt(graphs[j].levels[level][operation_indexes[k].index1].result *
                                 graphs[j].levels[level][operation_indexes[k].index2].result);
-                        node.operation = "m_g";
-                        cout << node.operation << " " << node.result << endl;
+                        node.operation = operation_indexes[k];
                     }
                     //verify if m_a
                     if(operations[operation_indexes[k].op] == "m_a") {
-                        cout << operations[operation_indexes[k].op] << endl;
                         node.result = (graphs[j].levels[level][operation_indexes[k].index1].result +
                                     graphs[j].levels[level][operation_indexes[k].index2].result) / 2;
-                        node.operation = "m_a";
-                        cout << node.operation << " " << node.result << endl;
+                        node.operation = operation_indexes[k];
                     }
                     //verify if m_h
                     if(operations[operation_indexes[k].op] == "m_h") {
-                        cout << operations[operation_indexes[k].op] << endl;
                         node.result = m_h(graphs[j].levels[level][operation_indexes[k].index1].result,
                                     graphs[j].levels[level][operation_indexes[k].index2].result);
-                        node.operation = "m_h";
-                        cout << node.operation << " " << node.result << endl;
+                        node.operation = operation_indexes[k];
                     }
                     //verify if m_p
                     if(operations[operation_indexes[k].op] == "m_p") {
-                        cout << operations[operation_indexes[k].op] << endl;
                         node.result = m_p(graphs[j].levels[level][operation_indexes[k].index1].result,
                             graphs[j].levels[level][operation_indexes[k].index2].result);
-                        node.operation = "m_p";
-                        cout << node.operation << " " << node.result << endl;
+                        node.operation = operation_indexes[k];
                     }
                     //verify if min
                     if(operations[operation_indexes[k].op] == "min") {
-                        cout << operations[operation_indexes[k].op] << endl;
                         node.result = min(graphs[j].levels[level][operation_indexes[k].index1].result,
                                     graphs[j].levels[level][operation_indexes[k].index2].result);
-                        node.operation = "min";
-                        cout << node.operation << " " << node.result << endl;
+                        node.operation = operation_indexes[k];
                     }
                     //verify if max
                     if(operations[operation_indexes[k].op] == "max") {
-                        cout << operations[operation_indexes[k].op] << endl;
                         node.result = max(graphs[j].levels[level][operation_indexes[k].index1].result,
                                     graphs[j].levels[level][operation_indexes[k].index2].result);
-                        node.operation = "max";
-                        cout << node.operation << " " << node.result << endl;
+                        node.operation = operation_indexes[k];
                     }
                     level_vector.push_back(node);
                 }
                 graphs[j].levels.push_back(level_vector);
-                level++;
             }
-            cout << "hello" << endl;
+            level++;
 
             //make the next number of operations until 1
             nr_max_op = nr_op;
@@ -217,24 +206,20 @@ int main() {
         }
 
         for(int a = 0; a < number_of_treshholds; a++) {
-            cout << "Iteration: " << i << endl;
             for(int b = 0; b < graphs[a].levels.size(); b++) {
-                for(int c = 0; c < graphs[a].levels[b].size(); c++) {
-                    cout << graphs[a].levels[b][c].operation << " " << graphs[a].levels[b][c].result << " ";
-                }
-                cout << endl;
                 if(b > 0) {
                     graphs[a].levels.erase(graphs[a].levels.begin() + b);
                     b--;
                 }
             }
-            cout << endl;
         }
     }
 
     for(int b = 0; b < graphs_ideal.levels.size(); b++) {
         for(int c = 0; c < graphs_ideal.levels[b].size(); c++) {
-            cout << graphs_ideal.levels[b][c].operation << " ";
+            cout << "{" << graphs_ideal.levels[b][c].operation.label << " " << 
+             graphs_ideal.levels[b][c].operation.index1 << " <-> " <<
+             graphs_ideal.levels[b][c].operation.index2 << "} ";
         }
         cout << endl;
     }

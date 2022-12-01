@@ -3,17 +3,18 @@
 
 using namespace std;
 
-class Node {
-    public:
-        string operation;
-        float result;
-
-        Node(string operation, float result);
-        Node();
-};
-
 typedef struct {
+    string label;
     int op;
     int index1;
     int index2;
-} operation;
+} Operation;
+
+class Node {
+    public:
+        Operation operation;
+        float result;
+
+        Node(Operation operation, float result);
+        Node();
+};
