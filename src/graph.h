@@ -3,7 +3,5 @@
 
 class Graph {
     public:
-        vector<Node> level;
-        vector<Node> old_level;
-        vector<Node> initial_level;
+        vector<vector<Node>> levels;
 };
