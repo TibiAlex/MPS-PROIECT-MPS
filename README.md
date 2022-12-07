@@ -23,9 +23,9 @@ Crearea unui algoritm ce citeste seturile de date de intrare din fisierele .csv,
 - [x] Familiarizarea cu modul de implementare al algoritmului MonteCarlo
 
 ### Milestone 2
-- [ ] Raport tehnic (articol)
-- [ ] Raport de dezvoltare si testare
-- [ ] Demo prototip intermediar
+- [x] Raport tehnic (articol)
+- [x] Raport de dezvoltare si testare
+- [x] Demo prototip intermediar
 
 ### Milestone 3
 - [ ] Prezentarea solutiei binarizare
